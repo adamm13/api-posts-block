@@ -1,7 +1,7 @@
 import { registerBlockType } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
-import APIPostsBlock from './components/APIPostsBlock';
-import './styles/block.scss';
+import APIPostsBlock from './components/APIPostsBlock.jsx';
+import './styles/block.css';
 
 registerBlockType( 'api-posts-block/posts', {
 	title: __( 'API Posts Block', 'api-posts-block' ),

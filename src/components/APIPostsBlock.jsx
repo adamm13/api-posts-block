@@ -12,7 +12,7 @@ import {
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
-import '../styles/block.scss';
+import '../styles/block.css';
 
 const APIPostsBlock = ( { attributes, setAttributes } ) => {
 	const { columns, showImage, showReadingTime } = attributes;
