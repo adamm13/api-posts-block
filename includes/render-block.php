@@ -1,6 +1,8 @@
 <?php
 /**
- * Server-side rendering callback for the API Posts Block
+ * Server-side rendering for the API Posts Block.
+ *
+ * Simple, readable helper functions to fetch articles and build HTML.
  *
  * @package APIPostsBlock
  */
@@ -10,7 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Render callback for the API Posts Block
+ * Render the block on the front end.
+ *
+ * Reads block attributes, fetches articles, and returns HTML.
  *
  * @param array $attributes Block attributes
  * @return string HTML output
@@ -20,10 +24,10 @@ function api_posts_block_render_callback( $attributes ) {
 	$show_image        = isset( $attributes['showImage'] ) ? (bool) $attributes['showImage'] : true;
 	$show_reading_time = isset( $attributes['showReadingTime'] ) ? (bool) $attributes['showReadingTime'] : true;
 
-	// Validate columns value
+	// Make sure columns is either 2 or 3
 	$columns = in_array( $columns, array( 2, 3 ), true ) ? $columns : 3;
 
-	// Fetch articles from Dev.to API
+	// Get articles from Dev.to (cached)
 	$articles = api_posts_block_fetch_articles();
 
 	if ( empty( $articles ) ) {
@@ -44,9 +48,11 @@ function api_posts_block_render_callback( $attributes ) {
 }
 
 /**
- * Fetch articles from Dev.to API
+ * Fetch articles from Dev.to and cache the response.
  *
- * @return array Array of articles or empty array on failure
+ * Returns an array of articles or an empty array on failure.
+ *
+ * @return array
  */
 function api_posts_block_fetch_articles() {
 	$cache_key = 'api_posts_block_articles';
@@ -70,18 +76,20 @@ function api_posts_block_fetch_articles() {
 		return array();
 	}
 
-	// Cache for 1 hour
+	// Cache for one hour
 	set_transient( $cache_key, $articles, HOUR_IN_SECONDS );
 
 	return $articles;
 }
 
 /**
- * Render a single article card
+ * Build the HTML for one article card.
  *
- * @param array   $article Article data
- * @param bool    $show_image Show cover image
- * @param bool    $show_reading_time Show reading time
+ * Sanitizes data and returns a small HTML snippet for the card.
+ *
+ * @param array $article Article data
+ * @param bool  $show_image Whether to show the cover image
+ * @param bool  $show_reading_time Whether to show reading time
  * @return string HTML card markup
  */
 function api_posts_block_render_card( $article, $show_image, $show_reading_time ) {

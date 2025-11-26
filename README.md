@@ -46,195 +46,34 @@ A professional WordPress Gutenberg block plugin that fetches and displays articl
    - Go to WordPress admin dashboard
    - Navigate to Plugins
    - Find "API Posts Block" and click Activate
+# API Posts Block
 
-6. Add the block to a page or post:
-   - Create/edit a page or post
-   - Click the "+" button to add a block
-   - Search for "API Posts Block"
-   - Configure settings using the inspector panel on the right
+A small Gutenberg block that pulls the latest articles from Dev.to and shows them as clean, simple cards.
 
-## Development
+This plugin is meant to be easy to install and use — no build tools are required on the server because the compiled files are included in `build/`.
 
-### Running in Development Mode
+What it does
+- Fetches up to 10 articles from Dev.to `https://dev.to/api/articles`
+- Displays title, excerpt, published date, and optional cover image and reading time
+- Lets you pick a 2- or 3-column layout and toggle images/reading time
+- Server-rendered for better SEO and caching (results cached for 1 hour)
 
-```bash
-npm run dev
+Quick install
+1. Copy the `api-posts-block` folder into your WordPress `wp-content/plugins/` directory.
+2. Activate the plugin in the WordPress admin.
+3. Add the block to a post or page by searching for "API Posts Block" in the block inserter.
+
+Notes for power users
+- If you want to rebuild the assets, run `npm install` and `npm run build` locally (Node.js required). The repo includes `package.json` and source files.
+
+Troubleshooting
+- If the block won't preview in the editor, open your browser console and check for JavaScript errors.
+- If articles don't appear, make sure your server can reach `https://dev.to` and that there are no blocking firewalls.
+
+Structure you should care about
+- `api-posts-block.php` — plugin bootstrap and block registration
+- `includes/render-block.php` — server render + API fetch + caching
+- `build/` — compiled JS/CSS used by WordPress (no build step required to run)
+
+If you'd like, I can help you publish this to GitHub, add a settings page, or add pagination/load-more. What would you like next?
 ```
-
-This will start the development server with file watching and automatic recompilation.
-
-### Building for Production
-
-```bash
-npm run build
-```
-
-This generates optimized, minified JavaScript and CSS files in the `build/` folder.
-
-### Linting
-
-Check JavaScript code quality:
-```bash
-npm run lint:js
-```
-
-Check styling issues:
-```bash
-npm run lint:style
-```
-
-### Code Formatting
-
-Format code according to WordPress standards:
-```bash
-npm run format
-```
-
-## Block Settings (Inspector Controls)
-
-### Layout Settings
-- **Number of Columns**: Choose between 2 or 3 columns for the grid layout
-
-### Display Options
-- **Show Cover Image**: Toggle to display/hide article cover images
-- **Show Reading Time**: Toggle to display/hide estimated reading time
-- **Show Reactions Count**: Toggle to display/hide the number of reactions
-
-## Project Structure
-
-```
-api-posts-block/
-├── src/
-│   ├── index.js                 # Block registration and main entry
-│   ├── components/
-│   │   └── APIPostsBlock.jsx    # React component with API fetching
-│   └── styles/
-│       ├── block.scss           # Main block styles
-│       └── editor.scss          # Editor-specific styles
-├── includes/
-│   └── render-block.php         # Server-side rendering callback
-├── build/                       # Compiled output (generated)
-│   ├── index.js
-│   ├── style.css
-│   └── editor.css
-├── api-posts-block.php          # Main plugin file
-├── package.json                 # Dependencies and scripts
-├── webpack.config.js            # Webpack configuration
-└── README.md                    # This file
-```
-
-## Technical Details
-
-### Frontend (React Component)
-
-The block uses React with WordPress components to:
-- Fetch articles asynchronously from Dev.to API
-- Display a responsive card grid
-- Handle loading and error states
-- Provide inspector controls for customization
-- Support server-side rendering
-
-### Backend (PHP)
-
-The plugin includes:
-- Block registration with proper attributes
-- Server-side rendering callback function
-- API fetching with error handling
-- Data caching using WordPress transients (1 hour TTL)
-- Security functions: `sanitize_text_field()`, `wp_kses_post()`, `esc_url()`, etc.
-
-### API Integration
-
-- **Endpoint**: `https://dev.to/api/articles`
-- **Parameters**: `per_page=10&sort=-published_at`
-- **Cache Duration**: 1 hour (adjustable in `render-block.php`)
-- **Error Handling**: Graceful fallback with user-friendly error messages
-
-### Styling
-
-The block uses SCSS for:
-- CSS variables for theming
-- Responsive mobile-first design
-- CSS Grid for flexible layouts
-- Smooth animations and transitions
-- Professional card styling with hover effects
-
-## Assumptions & Decisions
-
-1. **Server-Side Rendering**: Used SSR (PHP callback) to ensure content loads immediately and is SEO-friendly, while React is used for editor-only functionality.
-
-2. **Caching Strategy**: Articles are cached for 1 hour using WordPress transients. This reduces API calls and improves performance.
-
-3. **Responsive Design**: Mobile-first approach ensures excellent experience on all devices. On mobile, the grid collapses to a single column.
-
-4. **No Image Display in Frontend**: While images are fetched and available, the default is to show them but users can toggle this off. The focus is on text content.
-
-5. **Column Flexibility**: Users can choose 2 or 3 columns. The grid automatically adjusts on smaller screens.
-
-6. **Additional Display Options**: Besides the required elements (title, description, date), the block includes:
-   - Cover image (optional)
-   - Reading time (optional)
-   - Author name (default shown)
-   - Reaction count (optional)
-
-7. **Error Handling**: The block gracefully handles API errors and displays user-friendly messages rather than breaking the page.
-
-8. **WordPress Standards**: Used WordPress hooks, sanitization functions, and Gutenberg patterns throughout for maximum compatibility and security.
-
-## Browser Support
-
-- Chrome/Edge (latest)
-- Firefox (latest)
-- Safari (latest)
-- Mobile browsers (iOS Safari, Chrome Mobile)
-
-## Limitations & Future Enhancements
-
-- **No Pagination**: Currently fetches 10 articles. Could add pagination in future updates.
-- **Limited Caching**: Uses WordPress transients. Could implement more advanced caching strategies.
-- **API Only**: Currently hardcoded to Dev.to API. Could add settings to fetch from different sources.
-
-## Troubleshooting
-
-### Block not appearing after activation
-- Ensure you've run `npm run build` to generate the build files
-- Clear your browser cache
-- Flush WordPress object cache if using caching plugins
-
-### API errors
-- Check internet connection
-- Verify Dev.to API is accessible
-- Check WordPress error logs
-
-### Styling issues
-- Clear WordPress cache
-- Hard refresh browser (Ctrl+Shift+R)
-- Ensure SCSS compiled correctly to CSS
-
-## Dependencies
-
-- **WordPress 5.0+** (for Gutenberg support)
-- **@wordpress/scripts**: Build tools and CLI
-- **@wordpress/blocks**: Block API
-- **@wordpress/components**: UI components
-- **@wordpress/element**: React library
-- **@wordpress/i18n**: Internationalization
-- **sass**: SCSS compiler
-
-## License
-
-GPL v2 or later - See LICENSE file for details
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit pull requests or open issues for bugs and feature requests.
-
-## Support
-
-For issues, questions, or suggestions, please open an issue on the GitHub repository.
-
----
-
-**Author**: Adam Mohammed 
-**Version**: 1.0.0  
-**Last Updated**: November 2025

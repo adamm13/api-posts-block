@@ -21,7 +21,7 @@ define( 'API_POSTS_BLOCK_URL', plugin_dir_url( __FILE__ ) );
 define( 'API_POSTS_BLOCK_VERSION', '1.0.0' );
 
 /**
- * Register the API Posts Block
+ * Register the block and its assets.
  */
 function api_posts_block_register_block() {
 	// Register block script
@@ -80,11 +80,11 @@ function api_posts_block_register_block() {
 add_action( 'init', 'api_posts_block_register_block' );
 
 /**
- * Enqueue block assets only in the editor
+ * Load editor-only assets when the block editor is active.
  */
 function api_posts_block_enqueue_editor_assets() {
-	wp_enqueue_script( 'api-posts-block-editor' );
-	wp_enqueue_style( 'api-posts-block-editor-style' );
+    wp_enqueue_script( 'api-posts-block-editor' );
+    wp_enqueue_style( 'api-posts-block-editor-style' );
 }
 
 add_action( 'enqueue_block_editor_assets', 'api_posts_block_enqueue_editor_assets' );
