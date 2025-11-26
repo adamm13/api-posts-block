@@ -3,7 +3,7 @@
  * Plugin Name: API Posts Block
  * Plugin URI: https://github.com/your-username/api-posts-block
  * Description: A custom Gutenberg block that fetches and displays articles from the Dev.to API in a styled card layout
- * Version: 1.0.0
+ * Version: 5.14
  * Author: Adam Mohammed
  * License: GPL v2 or later
  * Text Domain: api-posts-block
@@ -24,7 +24,9 @@ define( 'API_POSTS_BLOCK_VERSION', '1.0.0' );
  * Register the block and its assets.
  */
 function api_posts_block_register_block() {
-	// Register block script
+    // Register the editor script.
+    // This script is the compiled bundle that provides the block UI in Gutenberg.
+    // We register it here so WordPress can manage dependencies and translations.
 	wp_register_script(
 		'api-posts-block-editor',
 		API_POSTS_BLOCK_URL . 'build/main.js',
@@ -32,7 +34,8 @@ function api_posts_block_register_block() {
 		API_POSTS_BLOCK_VERSION
 	);
 
-	// Register block styles
+	// Register the frontend stylesheet.
+	// This file is enqueued automatically when the block is rendered on the front end.
 	wp_register_style(
 		'api-posts-block-style',
 		API_POSTS_BLOCK_URL . 'build/style.css',
@@ -40,7 +43,8 @@ function api_posts_block_register_block() {
 		API_POSTS_BLOCK_VERSION
 	);
 
-	// Register block editor styles
+	// Register the editor-only stylesheet.
+	// These styles improve the block appearance inside the Gutenberg editor.
 	wp_register_style(
 		'api-posts-block-editor-style',
 		API_POSTS_BLOCK_URL . 'build/editor.css',
@@ -50,6 +54,13 @@ function api_posts_block_register_block() {
 
 	// Include block render callback
 	require_once API_POSTS_BLOCK_DIR . 'includes/render-block.php';
+
+	// Register the block type with attributes and server-side render callback.
+	// - 'editor_script' attaches the editor JS
+	// - 'style' is the frontend CSS
+	// - 'editor_style' is loaded only in the editor
+	// - 'render_callback' makes the block server-side rendered (SSR)
+	//   so the PHP function will output the final HTML on the page.
 
 	// Register the block
 	register_block_type(
@@ -83,8 +94,10 @@ add_action( 'init', 'api_posts_block_register_block' );
  * Load editor-only assets when the block editor is active.
  */
 function api_posts_block_enqueue_editor_assets() {
-    wp_enqueue_script( 'api-posts-block-editor' );
-    wp_enqueue_style( 'api-posts-block-editor-style' );
+	// When the editor is loaded, explicitly enqueue the editor script and styles.
+	// This ensures the block UI and editor CSS are available for the block inspector and preview.
+	wp_enqueue_script( 'api-posts-block-editor' );
+	wp_enqueue_style( 'api-posts-block-editor-style' );
 }
 
 add_action( 'enqueue_block_editor_assets', 'api_posts_block_enqueue_editor_assets' );
