@@ -4,10 +4,8 @@
  * Plugin URI: https://github.com/your-username/api-posts-block
  * Description: A custom Gutenberg block that fetches and displays articles from the Dev.to API in a styled card layout
  * Version: 1.0.0
- * Author: Developer
- * Author URI: https://example.com
+ * Author: Adam Mohammed
  * License: GPL v2 or later
- * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: api-posts-block
  * Domain Path: /languages
  *
@@ -71,10 +69,6 @@ function api_posts_block_register_block() {
 					'default' => true,
 				),
 				'showReadingTime' => array(
-					'type'    => 'boolean',
-					'default' => true,
-				),
-				'showReactions' => array(
 					'type'    => 'boolean',
 					'default' => true,
 				),

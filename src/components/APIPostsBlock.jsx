@@ -15,7 +15,7 @@ import apiFetch from '@wordpress/api-fetch';
 import '../styles/block.scss';
 
 const APIPostsBlock = ( { attributes, setAttributes } ) => {
-	const { columns, showImage, showReadingTime, showReactions } = attributes;
+	const { columns, showImage, showReadingTime } = attributes;
 	const [ articles, setArticles ] = useState( [] );
 	const [ loading, setLoading ] = useState( true );
 	const [ error, setError ] = useState( null );
@@ -63,8 +63,6 @@ const APIPostsBlock = ( { attributes, setAttributes } ) => {
 			published_at: publishedAt,
 			cover_image: coverImage,
 			reading_time_minutes: readingTime,
-			reactions_count: reactionsCount,
-			user,
 		} = article;
 
 		const publishedDate = publishedAt
@@ -74,8 +72,6 @@ const APIPostsBlock = ( { attributes, setAttributes } ) => {
 					day: 'numeric',
 			  } )
 			: '';
-
-		const authorName = user?.name || 'Unknown';
 
 		return (
 			<article key={ article.id } className="api-posts-block-card">
@@ -105,21 +101,9 @@ const APIPostsBlock = ( { attributes, setAttributes } ) => {
 							</span>
 						) }
 
-						{ authorName && (
-							<span className="api-posts-block-card-author">
-								by { authorName }
-							</span>
-						) }
-
 						{ showReadingTime && readingTime > 0 && (
 							<span className="api-posts-block-card-reading-time">
 								{ readingTime } min read
-							</span>
-						) }
-
-						{ showReactions && reactionsCount > 0 && (
-							<span className="api-posts-block-card-reactions">
-								❤️ { reactionsCount }
 							</span>
 						) }
 					</div>
@@ -177,18 +161,6 @@ const APIPostsBlock = ( { attributes, setAttributes } ) => {
 						}
 						help={ __(
 							'Display estimated reading time',
-							'api-posts-block'
-						) }
-					/>
-
-					<ToggleControl
-						label={ __( 'Show Reactions Count', 'api-posts-block' ) }
-						checked={ showReactions }
-						onChange={ ( value ) =>
-							setAttributes( { showReactions: value } )
-						}
-						help={ __(
-							'Display number of reactions on each article',
 							'api-posts-block'
 						) }
 					/>

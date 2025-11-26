@@ -19,7 +19,6 @@ function api_posts_block_render_callback( $attributes ) {
 	$columns           = isset( $attributes['columns'] ) ? (int) $attributes['columns'] : 3;
 	$show_image        = isset( $attributes['showImage'] ) ? (bool) $attributes['showImage'] : true;
 	$show_reading_time = isset( $attributes['showReadingTime'] ) ? (bool) $attributes['showReadingTime'] : true;
-	$show_reactions    = isset( $attributes['showReactions'] ) ? (bool) $attributes['showReactions'] : true;
 
 	// Validate columns value
 	$columns = in_array( $columns, array( 2, 3 ), true ) ? $columns : 3;
@@ -36,7 +35,7 @@ function api_posts_block_render_callback( $attributes ) {
 	$html .= '<div class="api-posts-block-grid">';
 
 	foreach ( $articles as $article ) {
-		$html .= api_posts_block_render_card( $article, $show_image, $show_reading_time, $show_reactions );
+		$html .= api_posts_block_render_card( $article, $show_image, $show_reading_time );
 	}
 
 	$html .= '</div></div>';
@@ -83,18 +82,15 @@ function api_posts_block_fetch_articles() {
  * @param array   $article Article data
  * @param bool    $show_image Show cover image
  * @param bool    $show_reading_time Show reading time
- * @param bool    $show_reactions Show reactions count
  * @return string HTML card markup
  */
-function api_posts_block_render_card( $article, $show_image, $show_reading_time, $show_reactions ) {
+function api_posts_block_render_card( $article, $show_image, $show_reading_time ) {
 	$title          = isset( $article['title'] ) ? sanitize_text_field( $article['title'] ) : 'No Title';
 	$description    = isset( $article['description'] ) ? wp_kses_post( $article['description'] ) : '';
 	$url            = isset( $article['url'] ) ? esc_url( $article['url'] ) : '#';
 	$published_at   = isset( $article['published_at'] ) ? sanitize_text_field( $article['published_at'] ) : '';
 	$cover_image    = isset( $article['cover_image'] ) ? esc_url( $article['cover_image'] ) : '';
 	$reading_time   = isset( $article['reading_time_minutes'] ) ? (int) $article['reading_time_minutes'] : 0;
-	$reactions_count = isset( $article['reactions_count'] ) ? (int) $article['reactions_count'] : 0;
-	$author_name    = isset( $article['user']['name'] ) ? sanitize_text_field( $article['user']['name'] ) : 'Unknown';
 
 	// Format published date
 	$published_date = '';
@@ -126,23 +122,14 @@ function api_posts_block_render_card( $article, $show_image, $show_reading_time,
 	// Meta information
 	$html .= '<div class="api-posts-block-card-meta">';
 
-	// Author and date
+	// Date
 	if ( ! empty( $published_date ) ) {
 		$html .= '<span class="api-posts-block-card-date">' . esc_html( $published_date ) . '</span>';
-	}
-
-	if ( ! empty( $author_name ) ) {
-		$html .= '<span class="api-posts-block-card-author">by ' . esc_html( $author_name ) . '</span>';
 	}
 
 	// Reading time
 	if ( $show_reading_time && $reading_time > 0 ) {
 		$html .= '<span class="api-posts-block-card-reading-time">' . esc_html( $reading_time ) . ' min read</span>';
-	}
-
-	// Reactions count
-	if ( $show_reactions && $reactions_count > 0 ) {
-		$html .= '<span class="api-posts-block-card-reactions">❤️ ' . esc_html( $reactions_count ) . '</span>';
 	}
 
 	$html .= '</div>';

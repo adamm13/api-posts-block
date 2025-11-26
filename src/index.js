@@ -26,10 +26,6 @@ registerBlockType( 'api-posts-block/posts', {
 			type: 'boolean',
 			default: true,
 		},
-		showReactions: {
-			type: 'boolean',
-			default: true,
-		},
 	},
 	edit: APIPostsBlock,
 	save: () => null, // Uses server-side rendering
