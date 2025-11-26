@@ -141,6 +141,14 @@ function api_posts_block_fetch_articles() {
  * @return array
  */
 function api_posts_block_get_demo_articles() {
+	$images = array(
+		'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400&h=300&fit=crop',
+		'https://images.unsplash.com/photo-1555066931-4365d440a117?w=400&h=300&fit=crop',
+		'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400&h=300&fit=crop',
+		'https://images.unsplash.com/photo-1516534775068-bb4f5e1b5be3?w=400&h=300&fit=crop',
+		'https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop',
+	);
+
 	return array(
 		array(
 			'id'                     => 1,
@@ -148,7 +156,7 @@ function api_posts_block_get_demo_articles() {
 			'description'            => 'Learn how to build custom Gutenberg blocks with React and PHP. This comprehensive guide covers block registration, attributes, and server-side rendering.',
 			'url'                    => 'https://dev.to',
 			'published_at'           => gmdate( 'c', time() - 86400 * 3 ),
-			'cover_image'            => 'https://via.placeholder.com/400x300?text=Gutenberg',
+			'cover_image'            => $images[0],
 			'reading_time_minutes'   => 8,
 		),
 		array(
@@ -157,7 +165,7 @@ function api_posts_block_get_demo_articles() {
 			'description'            => 'Optimize your WordPress site with caching strategies, API calls, and transients. Discover best practices for handling external data.',
 			'url'                    => 'https://dev.to',
 			'published_at'           => gmdate( 'c', time() - 86400 * 5 ),
-			'cover_image'            => 'https://via.placeholder.com/400x300?text=Performance',
+			'cover_image'            => $images[1],
 			'reading_time_minutes'   => 6,
 		),
 		array(
@@ -166,7 +174,7 @@ function api_posts_block_get_demo_articles() {
 			'description'            => 'Master CSS Grid and Flexbox to create beautiful, responsive layouts that work on all devices. Includes modern techniques and browser support.',
 			'url'                    => 'https://dev.to',
 			'published_at'           => gmdate( 'c', time() - 86400 * 7 ),
-			'cover_image'            => 'https://via.placeholder.com/400x300?text=Responsive',
+			'cover_image'            => $images[2],
 			'reading_time_minutes'   => 10,
 		),
 		array(
@@ -175,7 +183,7 @@ function api_posts_block_get_demo_articles() {
 			'description'            => 'Understand asynchronous programming in JavaScript with clear examples. Learn the differences between promises, callbacks, and async/await.',
 			'url'                    => 'https://dev.to',
 			'published_at'           => gmdate( 'c', time() - 86400 * 9 ),
-			'cover_image'            => 'https://via.placeholder.com/400x300?text=JavaScript',
+			'cover_image'            => $images[3],
 			'reading_time_minutes'   => 7,
 		),
 		array(
@@ -184,7 +192,7 @@ function api_posts_block_get_demo_articles() {
 			'description'            => 'Protect your PHP applications from common vulnerabilities. Learn about input validation, SQL injection prevention, and secure authentication.',
 			'url'                    => 'https://dev.to',
 			'published_at'           => gmdate( 'c', time() - 86400 * 10 ),
-			'cover_image'            => 'https://via.placeholder.com/400x300?text=Security',
+			'cover_image'            => $images[4],
 			'reading_time_minutes'   => 9,
 		),
 	);
