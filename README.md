@@ -235,6 +235,6 @@ For issues, questions, or suggestions, please open an issue on the GitHub reposi
 
 ---
 
-**Author**: Developer  
+**Author**: Adam Mohammed 
 **Version**: 1.0.0  
 **Last Updated**: November 2025
