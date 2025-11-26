@@ -1,0 +1,34 @@
+{
+  "name": "api-posts-block",
+  "version": "1.0.0",
+  "description": "WordPress Gutenberg block for displaying Dev.to API articles in a card layout",
+  "main": "index.js",
+  "scripts": {
+    "dev": "wp-scripts start",
+    "build": "wp-scripts build",
+    "lint:js": "wp-scripts lint-js",
+    "lint:style": "wp-scripts lint-style",
+    "format": "wp-scripts format"
+  },
+  "keywords": [
+    "wordpress",
+    "gutenberg",
+    "block",
+    "api",
+    "posts"
+  ],
+  "author": "Developer",
+  "license": "GPL v2 or later",
+  "devDependencies": {
+    "@wordpress/blocks": "^12.0.0",
+    "@wordpress/components": "^24.0.0",
+    "@wordpress/element": "^5.0.0",
+    "@wordpress/i18n": "^4.0.0",
+    "@wordpress/scripts": "^27.0.0",
+    "sass": "^1.69.0"
+  },
+  "peerDependencies": {
+    "@wordpress/block-editor": "^12.0.0",
+    "@wordpress/editor": "^13.0.0"
+  }
+}

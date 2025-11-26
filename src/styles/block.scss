@@ -1,0 +1,206 @@
+// API Posts Block Styles
+
+// Variables
+$primary-color: #2563eb;
+$text-color: #1f2937;
+$light-text: #6b7280;
+$border-color: #e5e7eb;
+$background-light: #f9fafb;
+$spacing-unit: 8px;
+$border-radius: 8px;
+$shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+$shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+$transition: all 0.3s ease;
+
+// Block Wrapper
+.api-posts-block-wrapper {
+	width: 100%;
+	padding: $spacing-unit * 2;
+}
+
+// Grid Layout
+.api-posts-block-grid {
+	display: grid;
+	gap: $spacing-unit * 3;
+	width: 100%;
+
+	// Responsive columns
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+	// 3 columns on larger screens
+	@media (min-width: 1024px) {
+		&:not([style*="columns-2"]) {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	// 2 columns
+	.api-posts-block-wrapper[data-columns="2"] & {
+		@media (min-width: 768px) {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	// 3 columns
+	.api-posts-block-wrapper[data-columns="3"] & {
+		@media (min-width: 1024px) {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+}
+
+// Card Styles
+.api-posts-block-card {
+	display: flex;
+	flex-direction: column;
+	background: white;
+	border: 1px solid $border-color;
+	border-radius: $border-radius;
+	overflow: hidden;
+	box-shadow: $shadow;
+	transition: $transition;
+
+	&:hover {
+		box-shadow: $shadow-hover;
+		transform: translateY(-2px);
+	}
+}
+
+// Card Image
+.api-posts-block-card-image {
+	width: 100%;
+	height: 200px;
+	overflow: hidden;
+	background-color: $background-light;
+
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+}
+
+// Card Content
+.api-posts-block-card-content {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	padding: $spacing-unit * 2;
+}
+
+// Card Title
+.api-posts-block-card-title {
+	margin: 0 0 $spacing-unit 0;
+	font-size: 1.1rem;
+	font-weight: 600;
+	line-height: 1.4;
+	color: $text-color;
+
+	a {
+		color: $text-color;
+		text-decoration: none;
+		transition: $transition;
+
+		&:hover {
+			color: $primary-color;
+		}
+	}
+}
+
+// Card Description
+.api-posts-block-card-description {
+	margin: 0 0 $spacing-unit * 2 0;
+	font-size: 0.95rem;
+	line-height: 1.6;
+	color: $light-text;
+	flex-grow: 1;
+}
+
+// Card Meta
+.api-posts-block-card-meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: $spacing-unit;
+	margin-top: auto;
+	padding-top: $spacing-unit;
+	border-top: 1px solid $border-color;
+	font-size: 0.85rem;
+	color: $light-text;
+}
+
+.api-posts-block-card-date,
+.api-posts-block-card-author,
+.api-posts-block-card-reading-time,
+.api-posts-block-card-reactions {
+	display: inline-flex;
+	align-items: center;
+	white-space: nowrap;
+}
+
+.api-posts-block-card-reactions {
+	color: #e11d48;
+	font-weight: 500;
+}
+
+// Loading State
+.api-posts-block-loading {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: $spacing-unit * 4;
+	text-align: center;
+
+	p {
+		margin-top: $spacing-unit * 2;
+		color: $light-text;
+		font-size: 0.95rem;
+	}
+}
+
+// Error State
+.api-posts-block-error {
+	padding: $spacing-unit * 2;
+	background-color: #fee2e2;
+	color: #991b1b;
+	border-radius: $border-radius;
+	border-left: 4px solid #dc2626;
+}
+
+// Notice component styling (from WordPress components)
+.components-notice {
+	margin-bottom: $spacing-unit * 2;
+}
+
+// Responsive mobile styles
+@media (max-width: 640px) {
+	.api-posts-block-wrapper {
+		padding: $spacing-unit;
+	}
+
+	.api-posts-block-grid {
+		gap: $spacing-unit * 2;
+		grid-template-columns: 1fr;
+	}
+
+	.api-posts-block-card-image {
+		height: 150px;
+	}
+
+	.api-posts-block-card-content {
+		padding: $spacing-unit;
+	}
+
+	.api-posts-block-card-meta {
+		flex-direction: column;
+		gap: $spacing-unit * 0.5;
+	}
+
+	.api-posts-block-card-date,
+	.api-posts-block-card-author,
+	.api-posts-block-card-reading-time,
+	.api-posts-block-card-reactions {
+		display: block;
+	}
+}
