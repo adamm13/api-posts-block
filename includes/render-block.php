@@ -160,7 +160,7 @@ function api_posts_block_get_demo_articles() {
 			'reading_time_minutes'   => 8,
 		),
 		array(
-			'id'                     => 2,
+			'id'                     => 5,
 			'title'                  => 'WordPress API Performance Tips',
 			'description'            => 'Optimize your WordPress site with caching strategies, API calls, and transients. Discover best practices for handling external data.',
 			'url'                    => 'https://dev.to',
@@ -169,7 +169,7 @@ function api_posts_block_get_demo_articles() {
 			'reading_time_minutes'   => 6,
 		),
 		array(
-			'id'                     => 3,
+			'id'                     => 1,
 			'title'                  => 'Building Responsive Web Layouts',
 			'description'            => 'Master CSS Grid and Flexbox to create beautiful, responsive layouts that work on all devices. Includes modern techniques and browser support.',
 			'url'                    => 'https://dev.to',
@@ -178,7 +178,7 @@ function api_posts_block_get_demo_articles() {
 			'reading_time_minutes'   => 10,
 		),
 		array(
-			'id'                     => 4,
+			'id'                     => 5,
 			'title'                  => 'JavaScript Async/Await Explained',
 			'description'            => 'Understand asynchronous programming in JavaScript with clear examples. Learn the differences between promises, callbacks, and async/await.',
 			'url'                    => 'https://dev.to',
@@ -187,7 +187,7 @@ function api_posts_block_get_demo_articles() {
 			'reading_time_minutes'   => 7,
 		),
 		array(
-			'id'                     => 5,
+			'id'                     => 1,
 			'title'                  => 'PHP Security Best Practices',
 			'description'            => 'Protect your PHP applications from common vulnerabilities. Learn about input validation, SQL injection prevention, and secure authentication.',
 			'url'                    => 'https://dev.to',

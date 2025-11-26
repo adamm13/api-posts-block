@@ -1,6 +1,6 @@
 {
   "name": "api-posts-block",
-  "version": "1.0.0",
+  "version": "5.1.4",
   "description": "WordPress Gutenberg block for displaying Dev.to API articles in a card layout",
   "main": "index.js",
   "scripts": {
