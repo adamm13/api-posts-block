@@ -99,7 +99,8 @@ function api_posts_block_fetch_articles() {
 		return $cached;
 	}
 
-	$url      = 'https://dev.to/api/articles?per_page=10&sort=-published_at';
+	// Use the Dev.to articles endpoint. Query parameters can be added client-side if needed.
+	$url      = 'https://dev.to/api/articles';
 	$args     = array(
 		'timeout'    => 10,
 		'sslverify'  => false, // Disable SSL check if firewall/proxy issues
