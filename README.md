@@ -70,10 +70,26 @@ Troubleshooting
 - If the block won't preview in the editor, open your browser console and check for JavaScript errors.
 - If articles don't appear, make sure your server can reach `https://dev.to` and that there are no blocking firewalls.
 
+Demo fallback (when Dev.to is unreachable)
+- If your server cannot reach the Dev.to API (common on locked-down hosting), the plugin automatically falls back to a set of demo articles so you can preview and style the block locally.
+- The fallback is used only when the plugin can't fetch live articles; it does not change or post anything to your site.
+- To force a fresh fetch (or clear the fallback cache), delete the transient named `api_posts_block_articles`:
+
+   - With WP-CLI:
+      ```powershell
+      wp transient delete api_posts_block_articles
+      ```
+
+   - Or in the database (phpMyAdmin / SQL):
+      ```sql
+      DELETE FROM wp_options WHERE option_name LIKE '%transient%api_posts_block_articles%';
+      ```
+
+- To disable the demo fallback entirely (advanced): edit `includes/render-block.php` and replace calls to `api_posts_block_get_demo_articles()` with `array()` so no demo articles are returned. If you want, I can add a filter or admin toggle instead.
+
 Structure you should care about
 - `api-posts-block.php` — plugin bootstrap and block registration
 - `includes/render-block.php` — server render + API fetch + caching
 - `build/` — compiled JS/CSS used by WordPress (no build step required to run)
 
-If you'd like, I can help you publish this to GitHub, add a settings page, or add pagination/load-more. What would you like next?
 ```
