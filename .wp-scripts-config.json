@@ -1,6 +1,0 @@
-{
-  "entry": {
-    "index": "./src/index.js"
-  },
-  "output": "build"
-}
