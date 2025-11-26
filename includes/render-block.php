@@ -31,7 +31,11 @@ function api_posts_block_render_callback( $attributes ) {
 	$articles = api_posts_block_fetch_articles();
 
 	if ( empty( $articles ) ) {
-		return '<div class="api-posts-block-error">Failed to fetch articles. Please try again later.</div>';
+		return '<div class="api-posts-block-error" style="padding: 20px; background: #fff3cd; border: 1px solid #ffc107; border-radius: 4px; color: #856404;">
+			<strong>API Posts Block:</strong> Unable to fetch articles from Dev.to. 
+			<br/>Check your server\'s internet connection and firewall rules. 
+			<br/>See WordPress error logs (wp-content/debug.log) for details.
+		</div>';
 	}
 
 	// Start building the HTML
@@ -65,14 +69,20 @@ function api_posts_block_fetch_articles() {
 	$url      = 'https://dev.to/api/articles?per_page=10&sort=-published_at';
 	$response = wp_remote_get( $url );
 
+	// Check for connection errors
 	if ( is_wp_error( $response ) ) {
+		$error_msg = $response->get_error_message();
+		error_log( 'API Posts Block: Failed to reach Dev.to API - ' . $error_msg );
 		return array();
 	}
 
+	// Get the response body
 	$body     = wp_remote_retrieve_body( $response );
 	$articles = json_decode( $body, true );
 
-	if ( empty( $articles ) || ! is_array( $articles ) ) {
+	// Log if decode fails or no articles
+	if ( ! $articles || ! is_array( $articles ) ) {
+		error_log( 'API Posts Block: Invalid response or no articles. Status: ' . wp_remote_retrieve_response_code( $response ) . ', Body: ' . substr( $body, 0, 200 ) );
 		return array();
 	}
 
