@@ -27,8 +27,8 @@ function api_posts_block_register_block() {
 	// Register block script
 	wp_register_script(
 		'api-posts-block-editor',
-		API_POSTS_BLOCK_URL . 'build/index.js',
-		array( 'wp-blocks', 'wp-element', 'wp-editor', 'wp-components', 'wp-api-fetch' ),
+		API_POSTS_BLOCK_URL . 'build/main.js',
+		array( 'wp-blocks', 'wp-element', 'wp-i18n', 'wp-block-editor', 'wp-components' ),
 		API_POSTS_BLOCK_VERSION
 	);
 
